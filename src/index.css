@@ -1,5 +1,142 @@
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Outfit:wght@100..900&display=swap");
+
 body {
   margin: 0;
+  font-family: "Montserrat", sans-serif;
+  height: 100%;
 }
 
+.header-img {
+  width: 200px;
+  display: flex;
+  flex-wrap: wrap;
+  border-radius: 50%;
+}
 
+.home-maindiv {
+  background-image: url("/public/bg_img.png");
+}
+
+.login-btn {
+  border: 1px solid black;
+  border-radius: 10px;
+  padding: "6px 14px";
+  font-weight: 500;
+}
+
+.page-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 95vh;
+  flex-wrap: wrap;
+  /* margin-top: 50px; */
+}
+
+.header-main-div {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  width: 100%;
+  max-width: 600px;
+  padding: 20px;
+}
+
+.login-btn:hover {
+  background-color: lightgray;
+}
+
+.input-form {
+  background-color: #ffffff;
+  padding: 40px 30px;
+  border-radius: 12px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 400px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.login-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 93vh;
+  background-color: #f0f4f8;
+  padding: 20px;
+}
+
+.form-title {
+  text-align: center;
+  margin-bottom: 20px;
+  color: #1e3a8a;
+}
+
+.input-group {
+  display: flex;
+  align-items: center;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  padding: 10px 12px;
+  background-color: #f9f9f9;
+  transition: border 0.3s;
+}
+
+.input-icon {
+  width: 20px;
+  height: 20px;
+  margin-right: 10px;
+}
+
+.input-field {
+  border: none;
+  outline: none;
+  flex: 1;
+  font-size: 16px;
+  background-color: transparent;
+}
+
+.forgot-link {
+  text-align: right;
+  font-size: 14px;
+}
+
+.forgot-link a {
+  color: #1e3a8a;
+  text-decoration: none;
+}
+
+.forgot-link a:hover {
+  text-decoration: underline;
+}
+
+.submit-btn {
+  width: 100%;
+  padding: 12px;
+  background-color: #1e3a8a;
+  color: white;
+  font-size: 16px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.submit-btn:hover {
+  background-color: #3749b0;
+}
+
+.text-center {
+  text-align: center;
+  font-size: 18px;
+  color: #1e3a8a;
+}
+
+@media (max-width: 500px) {
+  .input-form {
+    padding: 30px 20px;
+  }
+}
