@@ -8,7 +8,7 @@ import { toast } from "react-toastify";
 const Navbar = () => {
 
     const navigate = useNavigate()
-    const {userData, backendUrl, setUserData, setIsLoggedIn} = useProduct()
+    const {userData, backendUrl, setUserData, setIsLoggedIn, logout} = useProduct()
 
 
     const sendVerificationOtp = async () => {
@@ -27,18 +27,7 @@ const Navbar = () => {
         }
     }
 
-    const logout = async () => {
-        try {
-            axios.defaults.withCredentials = true
-            const {data} = await axios.post(backendUrl + '/v1/auth/logout')
-            data.success && setIsLoggedIn(false)
-            data.success && setUserData(false)
 
-            navigate('/')
-        } catch (error) {
-            toast.error(error.message)
-        }
-    }
     return (
         <div className="container d-flex justify-content-between align-items-center py-2">
             <h3 className="mb-0"><Link to="/" style={{textDecoration: 'none', color: 'black'}}>Anvaya CRM App</Link></h3>
@@ -47,6 +36,7 @@ const Navbar = () => {
                 {userData.name[0].toUpperCase()}
                 <div className="user-dropdown">
                     <ul>
+                        <li><Link className="my-profile" to='/login'>My Profile</Link></li>
                         {!userData.isVerified && 
                             <li onClick={sendVerificationOtp}>Verify email</li>
                         }

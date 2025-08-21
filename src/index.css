@@ -3,7 +3,6 @@
 body {
   margin: 0;
   font-family: "Montserrat", sans-serif;
-  /* background-image: url("/public/bg_img.png"); */
   height: 100%;
 }
 
@@ -15,7 +14,7 @@ body {
 }
 
 .home-maindiv {
-  background-image: url("/public/bg_img.png");
+  background-image: url("/bg_img.png");
 }
 
 .login-btn {
@@ -31,7 +30,6 @@ body {
   align-items: center;
   height: 95vh;
   flex-wrap: wrap;
-  /* margin-top: 50px; */
 }
 
 .header-main-div {
@@ -51,7 +49,6 @@ body {
 
 .input-form {
   background-color: #e5fffc81;
-  /* color: white; */
   padding: 40px 30px;
   border-radius: 12px;
   box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
@@ -188,23 +185,27 @@ body {
 .user-dropdown li {
   padding: 8px 12px;
   cursor: pointer;
-  color: rgb(106, 106, 106);
+  color: rgb(34, 34, 34);
 }
 
-.user-dropdown li:hover {
+.user-dropdown li:hover{
   background-color: #d3d3d3;
-  color: rgb(34, 34, 34);
 }
 
 .user-badge:hover .user-dropdown {
   display: block;
 }
 
+.my-profile {
+  text-decoration: none;
+  color: rgb(34, 34, 34);
+}
+
 .login-bg {
   height: 100vh;
   display: flex;
   flex-direction: column;
-  /* background: linear-gradient(to bottom, #2575fc, #6a11cb ) */
+
 }
 
 .verify-otp-container {
@@ -225,25 +226,30 @@ body {
 }
 
 .otp-inputs {
-  display: flex;
-  justify-content: space-between;
-  margin: 20px;
+  gap: 0.5rem;   
+  max-width: 100%;
+  margin: 0 auto;      
 }
 
-.otp-inputs input {
-  width: 3rem;        
-  height: 3.5rem;
+.otp-inputs input.otp-inputs {
+  flex: 1 1 0;
+  min-width: 30px;
+  max-width: 30px;        
+  height: 60px;
   font-size: 1.5rem;
   text-align: center;
   display: flex;
-  flex: 1;
-  border-radius: 8px;
+  border-radius: 12px;
   border: 1px solid #5d5d5d;
   outline: none;
-  transition: 0.2s;
+  transition: 0.3s ease;
+  box-sizing: border-box;
+  background-color: #f8f9fa;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.05);
 }
+
   
-.otp-inputs input:focus {
+.otp-inputs input.otp-inputs:focus {
   border-color: #2575fc;
   box-shadow: 0 0 5px rgba(37, 117, 252, 0.5);
 }
@@ -262,9 +268,24 @@ body {
   border: none;
   border-radius: 8px;
   cursor: pointer;
-  transition: 0.2s;
+  transition: 0.4s ease;
 }
 
 .verify-btn:hover {
   background-color: #003751;
 }
+
+.toggle-btn {
+  background-color: #3749b0;
+  color: white;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 0.5rem;
+  transition: background-color 0.3s ease;
+}
+
+.toggle-btn:hover {
+  background-color: #004c48;
+}
+
+

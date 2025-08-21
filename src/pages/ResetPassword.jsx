@@ -61,16 +61,21 @@ const ResetPassword = () => {
                 inputRefs.current[index].value = char
             }
         })
+
+        const lastIndex = pasteArray.length - 1
+        if(inputRefs.current[lastIndex]) {
+            inputRefs.current[lastIndex].focus()
+        }
     }
 
   const onSubmitOTP = async (e) => {
     e.preventDefault()
     try {
-        const otpArray = inputRefs.current.map(e => e.value)
-        setOtp(otpArray.join(''))
-        const {data} = await axios.post(backendUrl + '/v1/auth/verify-reset-otp', {otp, email})
+        const otpArray = inputRefs.current.map(e => e.value).join('')
+        setOtp(otpArray)
+        const {data} = await axios.post(backendUrl + '/v1/auth/verify-reset-otp', {otp: otpArray, email})
         data.success ? toast.success(data.message) : toast.error(data.message)
-        data.success && setIsOtpSubmited(true)
+        if(data.success) setIsOtpSubmited(true)
     } catch (error) {
         toast.error(error.message)
     }
@@ -112,13 +117,13 @@ const ResetPassword = () => {
             <br />
             <button type="submit" className="verify-btn">Send Verification OTP</button>
           </form>
-        )}
+        )} 
 
         {!isOtpSubmitted && isEmailSent && (
           <form onSubmit={onSubmitOTP} className="verify-otp-form">
             <h1 className="text-center  mb-2">Verify Your OTP</h1>
             <p className="text-center mb-4">Enter your OTP</p>
-            <div onPaste={handlePaste} className="otp-inputs">
+            <div onPaste={handlePaste} className="otp-inputs mb-3">
               {Array(6)
                 .fill(0)
                 .map((_, index) => (
