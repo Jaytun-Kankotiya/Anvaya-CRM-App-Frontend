@@ -1,9 +1,9 @@
 import React, { useEffect } from "react";
-import Navbar from "../components/Navbar";
+import Navbar from "../../components/Navbar";
 import axios from "axios";
-import { useProduct } from "../contexts/ProductContext";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
+import { useProduct } from "../../contexts/ProductContext";
 
 
 const EmailVerify = () => {

@@ -1,8 +1,8 @@
 import React from "react";
-import Navbar from "../components/Navbar";
-import { assets } from "../assets/assets";
+import Navbar from "../../components/Navbar";
+import { assets } from "../../assets/assets";
 import { Link } from "react-router-dom";
-import { useProduct } from "../contexts/ProductContext";
+import { useProduct } from "../../contexts/ProductContext";
 
 
 const Home = () => {

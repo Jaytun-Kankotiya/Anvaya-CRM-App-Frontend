@@ -1,7 +1,7 @@
 import React, { useState } from "react";
-import Navbar from "../components/Navbar";
-import { useProduct } from "../contexts/ProductContext";
-import { assets } from "../assets/assets";
+import Navbar from "../../components/Navbar";
+import { useProduct } from "../../contexts/ProductContext";
+import { assets } from "../../assets/assets";
 import axios from "axios";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";

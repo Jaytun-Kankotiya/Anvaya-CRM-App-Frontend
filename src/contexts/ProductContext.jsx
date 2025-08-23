@@ -23,8 +23,6 @@ const ProductProvider = (props) => {
 
   const inputRefs = React.useRef([]);
 
-
-
   const logout = async () => {
     try {
       axios.defaults.withCredentials = true;
@@ -67,6 +65,22 @@ const ProductProvider = (props) => {
     getAuthState();
   }, []);
 
+    const sendVerificationOtp = async () => {
+        try {
+            axios.defaults.withCredentials = true
+
+            const {data} = await axios.post(backendUrl + '/v1/auth/send-verify-otp')
+            if(data.success) {
+                navigate('/email-verify')
+                toast.success(data.message)
+            }else {
+                toast.error(data.message)
+            }
+        } catch (error) {
+            toast.error(error.message)
+        }
+    }
+
   const value = {
     backendUrl,
     formData,
@@ -77,6 +91,7 @@ const ProductProvider = (props) => {
     setUserData,
     getUserData,
     logout,
+    sendVerificationOtp
   };
   return (
     <>

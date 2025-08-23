@@ -1,8 +1,8 @@
 import React, { useState } from "react";
-import Navbar from "../components/Navbar";
-import { assets } from "../assets/assets";
+import Navbar from "../../components/Navbar";
+import { assets } from "../../assets/assets";
 import { data, Link, useNavigate } from "react-router-dom";
-import { useProduct } from "../contexts/ProductContext";
+import { useProduct } from "../../contexts/ProductContext";
 import axios from "axios";
 import { toast } from "react-toastify";
 
@@ -16,6 +16,7 @@ const Login = () => {
     logout,
     setIsLoggedIn,
     getUserData,
+    sendVerificationOtp
   } = useProduct();
   const [loginState, setLoginState] = useState(true);
 
@@ -45,7 +46,7 @@ const Login = () => {
         } else {
           toast.error(data.message);
         }
-        setFormData({name: "", email: "", password: "" })
+        setFormData({ name: "", email: "", password: "" });
       } else {
         const { data } = await axios.post(backendUrl + "/v1/auth/login", {
           email: formData.email,
@@ -55,12 +56,12 @@ const Login = () => {
         if (data.success) {
           setIsLoggedIn(true);
           getUserData();
-          
+
           navigate("/");
         } else {
           toast.error(data.message);
         }
-        setFormData({email: "", password: "" })
+        setFormData({ email: "", password: "" });
       }
     } catch (error) {
       toast.error(error.message);
@@ -68,6 +69,7 @@ const Login = () => {
   };
 
   console.log(formData);
+  console.log(userData);
 
   return (
     <div className="login-bg">
@@ -75,8 +77,7 @@ const Login = () => {
       <div className="login-container">
         <div className="input-form">
           {isLoggedIn ? (
-            <div>
-              <div className="p-4 bg-transparent ">
+              <div className="p-4 bg-transparent">
                 <h2 className="text-center mb-3">Welcome, {userData?.name}</h2>
                 <p className="text-center mb-4">Here's your profile info:</p>
                 <div className=" text-center mb-4">
@@ -92,9 +93,24 @@ const Login = () => {
                   />
                 </div>
                 <div className="mb-4">
-                <p className="mt-3">Name: {userData.name}</p>{" "}
-                <hr className="mb-2 mt-0" /> <p>Email: {userData.email}</p>
+                  <p className="mt-3">Name: {userData.name}</p>{" "}
+                  <hr className="mb-2 mt-0" />
+                  <p>Email: {userData.email}</p>
+                  <hr className="mb-2 mt-0" />
+                  <p>
+                    Account Verified:{" "}
+                    {userData.isVerified ? (
+                      <span style={{ color: "green", fontWeight: "bold" }}>
+                        ✅ Verified
+                      </span>
+                    ) : (
+                      <span style={{ color: "red", fontWeight: "bold" }}>
+                        ❌ Not Verified
+                      </span>
+                    )}
+                  </p>
                 </div>
+                {!userData.isVerified && <button onClick={sendVerificationOtp} className="verify-btn mb-2">Verify Account Now</button>}
                 <button
                   type="button"
                   className="verify-btn d-flex justify-content-center align-items-center gap-1"
@@ -103,7 +119,6 @@ const Login = () => {
                   LogOut<i className="fas fa-sign-out-alt me-2"></i>
                 </button>
               </div>
-            </div>
           ) : (
             <>
               <h2 className="form-title mb-0">
