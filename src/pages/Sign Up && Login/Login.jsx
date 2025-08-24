@@ -57,7 +57,7 @@ const Login = () => {
           setIsLoggedIn(true);
           getUserData();
 
-          navigate("/");
+          navigate("/anvaya-dashboard");
         } else {
           toast.error(data.message);
         }

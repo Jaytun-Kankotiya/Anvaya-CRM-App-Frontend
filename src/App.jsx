@@ -11,6 +11,7 @@ import {ProductProvider} from './contexts/ProductContext'
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css'
 import Dashboard from './pages/Leads && Sales Agent/Dashboard';
+import AddNewLead from './pages/Leads && Sales Agent/AddNewLead';
 
 function App() {
 
@@ -24,6 +25,7 @@ function App() {
         <Route path='/email-verify' element={<EmailVerify />} />
         <Route path='/reset-password' element={<ResetPassword />} />
         <Route path='/anvaya-dashboard' element={<Dashboard />} />
+        <Route path='/add-new-lead' element={<AddNewLead />} />
       </Routes>
     {/* </ProductProvider> */}
     </>

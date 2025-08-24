@@ -1,5 +1,6 @@
 import axios from "axios";
 import React from "react";
+import { Link } from "react-router-dom";
 import { createContext, useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
@@ -20,8 +21,6 @@ const ProductProvider = (props) => {
   const [userData, setUserData] = useState(false);
 
   const backendUrl = import.meta.env.VITE_ANVAYA_BACKEND_URL;
-
-  const inputRefs = React.useRef([]);
 
   const logout = async () => {
     try {
@@ -81,6 +80,29 @@ const ProductProvider = (props) => {
         }
     }
 
+     const sidebar = () => {
+
+    return (
+        <aside className="dash-board-sidebar">
+          <h5 className="sidebar-title">Dashboard Menu</h5>
+          <ul className="sidebar-links">
+            <li>
+              <Link className="sidebar-link">Leads</Link>
+            </li>
+            <li>
+              <Link className="sidebar-link">Sales Agents</Link>
+            </li>
+            <li>
+              <Link className="sidebar-link">Reports</Link>
+            </li>
+            <li>
+              <Link className="sidebar-link">Settings</Link>
+            </li>
+          </ul>
+        </aside>
+    )
+  }
+
   const value = {
     backendUrl,
     formData,
@@ -90,6 +112,7 @@ const ProductProvider = (props) => {
     userData,
     setUserData,
     getUserData,
+    sidebar,
     logout,
     sendVerificationOtp
   };

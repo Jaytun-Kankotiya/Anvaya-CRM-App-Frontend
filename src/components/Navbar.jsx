@@ -8,12 +8,12 @@ import { toast } from "react-toastify";
 const Navbar = () => {
 
     const navigate = useNavigate()
-    const {userData, backendUrl, setUserData, setIsLoggedIn, logout, sendVerificationOtp} = useProduct()
+    const {userData, backendUrl, setUserData, isLoggedIn, setIsLoggedIn, logout, sendVerificationOtp} = useProduct()
 
 
     return (
         <div className="container d-flex justify-content-between align-items-center py-2">
-            <h3 className="mb-0"><Link to="/" style={{textDecoration: 'none', color: 'black'}}>Anvaya CRM App</Link></h3>
+            <h3 className="mb-0"><Link to={isLoggedIn ? '/anvaya-dashboard' : '/'} style={{textDecoration: 'none', color: 'black'}}>Anvaya CRM App</Link></h3>
             {userData ? 
             <div className="user-badge">
                 {userData.name[0].toUpperCase()}
