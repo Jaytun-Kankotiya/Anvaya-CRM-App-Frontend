@@ -153,16 +153,15 @@ body {
 }
 
 .user-badge {
-  width: 32px;
-  height: 32px;
-  font-size: 16px;
   font-weight: bold;
   cursor: pointer;
   display: flex;
   justify-content: center;
   align-items: center;
-  border-radius: 50%;
-  background-color: #333;
+  /* border-radius: 20px; */
+  padding: 5px 15px;
+  border-radius: 70%;
+  background-color: #402929;
   color: #fff;
   position: relative;
 }
@@ -298,11 +297,13 @@ body {
   /* background: linear-gradient(to bottom, #FFDDE1, #EE9CA7); */
   background-color: var(--primaryColor);
   min-height: 100vh;
+  min-width: 600px;
 }
 
 .dashboard-container {
   display: flex;
   flex-direction: row;
+  /* flex-wrap: wrap; */
 }
 
 .dashboard-main {
@@ -313,7 +314,7 @@ body {
 }
 
 .dash-board-sidebar {
-  width: 240px;
+  max-width: 240px;
   background: #f9f9f9;
   padding: 20px;
   border-right: 1px solid #ddd;
@@ -431,7 +432,7 @@ body {
 }
 
 .lead-card h5 {
-  margin-bottom: 8px;
+  margin-bottom: 15px;
   margin-top: 5px;
   font-size: 1.1rem;
   font-weight: 600;
@@ -464,7 +465,7 @@ body {
   flex-direction: column;
   border: 1px solid black;
   border-radius: 12px;
-  min-width: 500px;
+  min-width: 400px;
   max-width: 900px;
   width: 100%;
   background-color: #fff;

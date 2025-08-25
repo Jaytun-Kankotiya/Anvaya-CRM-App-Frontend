@@ -3,6 +3,7 @@ import Navbar from "../../components/Navbar";
 import { useProduct } from "../../contexts/ProductContext";
 import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
 
 const AddNewLead = () => {
   const { sidebar, backendUrl } = useProduct();
@@ -16,6 +17,8 @@ const AddNewLead = () => {
     priority: "",
     timeToClose: "",
   });
+
+  const navigate = useNavigate()
 
   const getSalesAgent = async () => {
     try {
@@ -34,12 +37,27 @@ const AddNewLead = () => {
     getSalesAgent();
   }, []);
 
-  console.log(salesAgentData);
 
   const handleFormChange = (e) => {
     const { name, value } = e.target;
     setLeadData({ ...leadData, [name]: value });
   };
+
+  const postNewLead = async (e) => {
+    e.preventDefault()
+    try {
+        const {data} = await axios.post(backendUrl + '/v1/leads/add', leadData)
+        if(data.error) {
+            toast.error(data.error)
+            return
+        }
+        toast.success(data.message)
+        navigate('/anvaya-dashboard')
+    } catch (error) {
+        console.log("Error adding new lead data")
+        toast.error(error.response?.data?.error || "Something went wrong");
+    }
+  }
 
   return (
     <div className="dashboard-bg">
@@ -51,12 +69,13 @@ const AddNewLead = () => {
           <h2>Add New Lead</h2>
 
           <div className="leadAdd-form">
-            <form action="">
+            <form onSubmit={postNewLead}>
               <div className="lead-input-div">
                 <label htmlFor="">Lead Name:</label>
                 <input
                   type="text"
                   name="name"
+                  required
                   placeholder="Full Name"
                   onChange={handleFormChange}
                   value={leadData.name}
@@ -68,6 +87,7 @@ const AddNewLead = () => {
                 <select
                   name="source"
                   id="source"
+                  required
                   value={leadData.source}
                   onChange={handleFormChange}
                 >
@@ -88,6 +108,7 @@ const AddNewLead = () => {
                 <select
                   name="salesAgent"
                   id="agents"
+                  required
                   value={leadData.salesAgent}
                   onChange={handleFormChange}
                 >
@@ -95,7 +116,7 @@ const AddNewLead = () => {
                     Select Agent
                   </option>
                   {salesAgentData.map((agent) =>( 
-                    <option value={agent._id}>{agent.name} - {agent._id}</option>
+                    <option key={agent._id} value={agent._id}>{agent.name} - {agent._id}</option>
                   ))}
                 </select>
               </div><br />
@@ -105,6 +126,7 @@ const AddNewLead = () => {
                 <select
                   name="status"
                   id=""
+                  required
                   value={leadData.status}
                   onChange={handleFormChange}
                 >
@@ -134,6 +156,7 @@ const AddNewLead = () => {
                 <select
                   name="priority"
                   id=""
+                  required
                   value={leadData.priority}
                   onChange={handleFormChange}
                 >
@@ -157,6 +180,7 @@ const AddNewLead = () => {
                 <input
                   name="timeToClose"
                   type="number"
+                  required
                   placeholder="Number of Days"
                   value={leadData.timeToClose}
                   onChange={handleFormChange}
@@ -168,6 +192,7 @@ const AddNewLead = () => {
                 <select
                   name="tags"
                   id=""
+                  required
                   value={leadData.tags}
                   onChange={handleFormChange}
                 >

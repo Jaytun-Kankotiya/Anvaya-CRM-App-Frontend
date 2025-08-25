@@ -16,7 +16,7 @@ const Navbar = () => {
             <h3 className="mb-0"><Link to={isLoggedIn ? '/anvaya-dashboard' : '/'} style={{textDecoration: 'none', color: 'black'}}>Anvaya CRM App</Link></h3>
             {userData ? 
             <div className="user-badge">
-                {userData.name[0].toUpperCase()}
+                {userData.name}
                 <div className="user-dropdown">
                     <ul>
                         <li><Link className="my-profile" to='/login'>My Profile</Link></li>
