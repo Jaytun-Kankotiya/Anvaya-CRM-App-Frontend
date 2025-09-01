@@ -5,9 +5,10 @@ import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 
 const SalesAgent = () => {
-  const { sidebar, backendUrl } = useProduct();
-  const [salesAgentsList, setSalesAgentsList] = useState();
+  const { sidebar, backendUrl, navigate } = useProduct();
+  const [salesAgentsList, setSalesAgentsList] = useState([]);
   const [loading, setLoading] = useState(true);
+
 
   const fetchSalesAgentList = async (e) => {
     try {
@@ -28,29 +29,28 @@ const SalesAgent = () => {
     fetchSalesAgentList();
   }, []);
 
-  console.log(salesAgentsList);
-
   return (
     <div className="dashboard-bg">
       <Navbar />
-      <div className="d-flex">
+      <div className="dashboard-container">
         {sidebar()}
 
-        <main className="sales-main-div w-100">
-          <div className="d-flex justify-content-between align-items-center mb-2">
+        <main className="dashboard-main">
+          <div className="sales-div">
             <h2>Sales Agent List</h2>
-            <button type="button" className="sales-add-btn">
+            <button type="button" onClick={() => navigate('/add-new-agent')} className="sales-add-btn">
               Add New Agent
             </button>
+            <span className="badge-primary">Total Agents: {salesAgentsList.length}</span>
           </div>
           {loading ? (
             <p>Loading sales agents...</p>
           ) : salesAgentsList.length > 0 ? (
             <div>
               {salesAgentsList ? (
-                <div className="row py-2">
+                <div className="sales-cards py-2">
                   {salesAgentsList.map((agent) => (
-                    <div key={agent._id}  className="col-md-3 mb-3">
+                    <div key={agent._id}  className="mb-2">
                       <div
                         className="list-div p-3 shadow-sm rounded bg-white"
                       >

@@ -1,6 +1,6 @@
 import axios from "axios";
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import { createContext, useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
@@ -9,8 +9,6 @@ const ProductContext = createContext();
 export const useProduct = () => useContext(ProductContext);
 
 const ProductProvider = (props) => {
-  axios.defaults.withCredentials = true;
-  const navigate = useNavigate();
 
   const [formData, setFormData] = useState({
     name: "",
@@ -18,9 +16,15 @@ const ProductProvider = (props) => {
     password: "",
   });
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [leads, setLeads] = useState([]);
   const [userData, setUserData] = useState(false);
-
+  const [filteredLeads, setFilteredLeads] = useState([]);
+  
   const backendUrl = import.meta.env.VITE_ANVAYA_BACKEND_URL;
+  
+  axios.defaults.withCredentials = true;
+
+  const navigate = useNavigate();
 
   const logout = async () => {
     try {
@@ -82,24 +86,38 @@ const ProductProvider = (props) => {
     }
   };
 
+    const fetchLeaders = async () => {
+    try {
+      const { data } = await axios.get(`${backendUrl}/v1/leads`);
+      if (Array.isArray(data)) {
+        setLeads(data);
+        setFilteredLeads(data);
+      } else {
+        toast.error("Failed to fetch leads");
+      }
+    } catch (error) {
+      console.log(error.message);
+    }
+  };
+
   const sidebar = () => {
     return (
       <aside className="dash-board-sidebar">
         <h5 className="sidebar-title">Dashboard Menu</h5>
         <ul className="sidebar-links">
           <li>
-            <Link className="sidebar-link">Leads</Link>
+            <NavLink to="/leads" className={({isActive}) => isActive ? "sidebar-link active" : "sidebar-link"}>Leads</NavLink>
           </li>
           <li>
-            <Link to="/sales-agent" className="sidebar-link">
+            <NavLink to="/sales-agent" className={({isActive}) => isActive ? "sidebar-link active" : "sidebar-link"}>
               Sales Agents
-            </Link>
+            </NavLink>
           </li>
           <li>
-            <Link className="sidebar-link">Reports</Link>
+            <NavLink to="/report" className={({isActive}) => isActive ? "sidebar-link active" : "sidebar-link"}>Reports</NavLink>
           </li>
           <li>
-            <Link className="sidebar-link">Settings</Link>
+            <NavLink to="/setting" className={({isActive}) => isActive ? "sidebar-link active" : "sidebar-link"}>Settings</NavLink>
           </li>
         </ul>
       </aside>
@@ -118,6 +136,12 @@ const ProductProvider = (props) => {
     sidebar,
     logout,
     sendVerificationOtp,
+    navigate,
+    leads, 
+    setLeads,
+    fetchLeaders,
+    filteredLeads, 
+    setFilteredLeads
   };
   return (
     <>

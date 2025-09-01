@@ -59,7 +59,7 @@ const AddNewLead = () => {
     }
   }
 
-  
+
   return (
     <div className="dashboard-bg">
       <Navbar />
@@ -84,7 +84,7 @@ const AddNewLead = () => {
               </div><br />
 
               <div className="lead-input-div">
-                <label htmlFor="">Lead Source:</label>
+                <label >Lead Source:</label>
                 <select
                   name="source"
                   id="source"

@@ -6,28 +6,12 @@ import { useProduct } from "../../contexts/ProductContext";
 import { toast } from "react-toastify";
 
 const Dashboard = () => {
-  const { backendUrl, sidebar } = useProduct();
-  const [leads, setLeads] = useState([]);
+  const { backendUrl, sidebar, leads, setLeads, fetchLeaders, filteredLeads, setFilteredLeads } = useProduct();
   const [statusFilter, setStatusFilter] = useState("");
-  const [filteredLeads, setFilteredLeads] = useState([]);
 
   const navigate = useNavigate()
 
   axios.defaults.withCredentials = true;
-
-  const fetchLeaders = async () => {
-    try {
-      const { data } = await axios.get(`${backendUrl}/v1/leads`);
-      if (Array.isArray(data)) {
-        setLeads(data);
-        setFilteredLeads(data);
-      } else {
-        toast.error("Failed to fetch leads");
-      }
-    } catch (error) {
-      console.log(error.message);
-    }
-  };
 
   useEffect(() => {
     if (!statusFilter) {

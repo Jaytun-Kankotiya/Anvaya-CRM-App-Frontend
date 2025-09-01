@@ -13,6 +13,10 @@ import 'react-toastify/dist/ReactToastify.css'
 import Dashboard from './pages/Leads && Sales Agent/Dashboard';
 import AddNewLead from './pages/Leads && Sales Agent/AddNewLead';
 import SalesAgent from './pages/Leads && Sales Agent/SalesAgents';
+import Leads from './pages/Leads && Sales Agent/Leads';
+import AddNewAgent from './pages/Leads && Sales Agent/AddNewAgent';
+import Reports from './pages/Leads && Sales Agent/Reports';
+import Settings from './pages/Leads && Sales Agent/Settings';
 
 function App() {
 
@@ -26,8 +30,12 @@ function App() {
         <Route path='/email-verify' element={<EmailVerify />} />
         <Route path='/reset-password' element={<ResetPassword />} />
         <Route path='/anvaya-dashboard' element={<Dashboard />} />
+        <Route path='/leads' element={<Leads />} />
         <Route path='/add-new-lead' element={<AddNewLead />} />
         <Route path='/sales-agent' element={<SalesAgent />} />
+        <Route path='/add-new-agent' element={<AddNewAgent />} />
+        <Route path='/report' element={<Reports />} />
+        <Route path='/setting' element={<Settings />} />
       </Routes>
     {/* </ProductProvider> */}
     </>
