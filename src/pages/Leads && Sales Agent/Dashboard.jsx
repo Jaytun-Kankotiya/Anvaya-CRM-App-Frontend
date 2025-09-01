@@ -13,7 +13,6 @@ const Dashboard = () => {
 
   const navigate = useNavigate()
 
-
   axios.defaults.withCredentials = true;
 
   const fetchLeaders = async () => {
@@ -29,19 +28,6 @@ const Dashboard = () => {
       console.log(error.message);
     }
   };
-
-  // const leadersByStatus = async () => {
-  //     try {
-  //         const {data} = await axios.get(backendUrl + `/v1/leades/?status="${statusFilter}"`)
-  //         if(data.success){
-  //             setShowStatus(data)
-  //         }else {
-  //             console.log('Error fetching leads by status')
-  //         }
-  //     } catch (error) {
-  //         console.log(error.message)
-  //     }
-  // }
 
   useEffect(() => {
     if (!statusFilter) {

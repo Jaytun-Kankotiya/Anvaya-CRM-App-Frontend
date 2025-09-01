@@ -12,6 +12,7 @@ import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css'
 import Dashboard from './pages/Leads && Sales Agent/Dashboard';
 import AddNewLead from './pages/Leads && Sales Agent/AddNewLead';
+import SalesAgent from './pages/Leads && Sales Agent/SalesAgents';
 
 function App() {
 
@@ -26,6 +27,7 @@ function App() {
         <Route path='/reset-password' element={<ResetPassword />} />
         <Route path='/anvaya-dashboard' element={<Dashboard />} />
         <Route path='/add-new-lead' element={<AddNewLead />} />
+        <Route path='/sales-agent' element={<SalesAgent />} />
       </Routes>
     {/* </ProductProvider> */}
     </>

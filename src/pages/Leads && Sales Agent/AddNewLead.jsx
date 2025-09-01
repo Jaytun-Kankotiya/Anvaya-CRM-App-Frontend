@@ -59,6 +59,7 @@ const AddNewLead = () => {
     }
   }
 
+  
   return (
     <div className="dashboard-bg">
       <Navbar />

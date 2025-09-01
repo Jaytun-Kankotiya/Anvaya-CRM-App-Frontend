@@ -64,44 +64,47 @@ const ProductProvider = (props) => {
     getAuthState();
   }, []);
 
-    const sendVerificationOtp = async () => {
-        try {
-            axios.defaults.withCredentials = true
+  const sendVerificationOtp = async () => {
+    try {
+      axios.defaults.withCredentials = true;
 
-            const {data} = await axios.post(backendUrl + '/v1/auth/send-verify-otp')
-            if(data.success) {
-                navigate('/email-verify')
-                toast.success(data.message)
-            }else {
-                toast.error(data.message)
-            }
-        } catch (error) {
-            toast.error(error.message)
-        }
+      const { data } = await axios.post(
+        backendUrl + "/v1/auth/send-verify-otp"
+      );
+      if (data.success) {
+        navigate("/email-verify");
+        toast.success(data.message);
+      } else {
+        toast.error(data.message);
+      }
+    } catch (error) {
+      toast.error(error.message);
     }
+  };
 
-     const sidebar = () => {
-
+  const sidebar = () => {
     return (
-        <aside className="dash-board-sidebar">
-          <h5 className="sidebar-title">Dashboard Menu</h5>
-          <ul className="sidebar-links">
-            <li>
-              <Link className="sidebar-link">Leads</Link>
-            </li>
-            <li>
-              <Link className="sidebar-link">Sales Agents</Link>
-            </li>
-            <li>
-              <Link className="sidebar-link">Reports</Link>
-            </li>
-            <li>
-              <Link className="sidebar-link">Settings</Link>
-            </li>
-          </ul>
-        </aside>
-    )
-  }
+      <aside className="dash-board-sidebar">
+        <h5 className="sidebar-title">Dashboard Menu</h5>
+        <ul className="sidebar-links">
+          <li>
+            <Link className="sidebar-link">Leads</Link>
+          </li>
+          <li>
+            <Link to="/sales-agent" className="sidebar-link">
+              Sales Agents
+            </Link>
+          </li>
+          <li>
+            <Link className="sidebar-link">Reports</Link>
+          </li>
+          <li>
+            <Link className="sidebar-link">Settings</Link>
+          </li>
+        </ul>
+      </aside>
+    );
+  };
 
   const value = {
     backendUrl,
@@ -114,7 +117,7 @@ const ProductProvider = (props) => {
     getUserData,
     sidebar,
     logout,
-    sendVerificationOtp
+    sendVerificationOtp,
   };
   return (
     <>

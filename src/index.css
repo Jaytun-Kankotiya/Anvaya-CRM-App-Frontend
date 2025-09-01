@@ -517,3 +517,42 @@ body {
   background-color: #37b53d;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
+
+
+.sales-main-div {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: column;
+  padding: 20px 30px;
+  min-width: 200px;
+  width: 100%;
+}
+
+.sales-add-btn {
+  background-color: var(--secondaryColor);
+  color: #fff;
+  padding: 12px;
+  font-weight: bold;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: 0.4s ease;
+}
+
+.sales-add-btn:hover {
+  background-color: var(--tertiaryColor);
+}
+
+.list-div {
+  display: flex;
+  flex-direction: row;
+  background-color: #fff;
+  gap: 3px;
+}
+
+.list-div:hover {
+  transform: translateY(-2px);
+  cursor: pointer;
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.15);
+  transition: all 0.3s ease-in-out;
+}
