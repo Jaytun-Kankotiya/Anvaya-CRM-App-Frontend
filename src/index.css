@@ -595,13 +595,14 @@ body {
   gap: 20px;
 }
 
-.lead-card-div:hover {
+/* .lead-card-div:hover {
   transform: translateY(-2px);
   cursor: pointer;
   box-shadow: 0 3px 8px rgba(0, 0, 0, 0.15);
-}
+} */
 
 .edit-btn {
+  border: none;
   border-radius: 10px;
   background-color: var(--secondaryColor);
   color: #fff;

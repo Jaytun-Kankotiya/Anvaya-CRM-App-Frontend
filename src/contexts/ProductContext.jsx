@@ -64,9 +64,7 @@ const ProductProvider = (props) => {
     }
   };
 
-  useEffect(() => {
-    getAuthState();
-  }, []);
+
 
   const sendVerificationOtp = async () => {
     try {
@@ -123,6 +121,11 @@ const ProductProvider = (props) => {
       </aside>
     );
   };
+
+useEffect(() => {
+    getAuthState();
+    fetchLeaders()
+  }, []);
 
   const value = {
     backendUrl,
