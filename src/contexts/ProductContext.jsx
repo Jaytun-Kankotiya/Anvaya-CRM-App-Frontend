@@ -19,6 +19,7 @@ const ProductProvider = (props) => {
   const [leads, setLeads] = useState([]);
   const [userData, setUserData] = useState(false);
   const [filteredLeads, setFilteredLeads] = useState([]);
+  const [salesAgentData, setSalesAgentsData] = useState([]);
   
   const backendUrl = import.meta.env.VITE_ANVAYA_BACKEND_URL;
   
@@ -65,7 +66,6 @@ const ProductProvider = (props) => {
   };
 
 
-
   const sendVerificationOtp = async () => {
     try {
       axios.defaults.withCredentials = true;
@@ -98,6 +98,19 @@ const ProductProvider = (props) => {
     }
   };
 
+const getSalesAgent = async () => {
+    try {
+      const { data } = await axios.get(backendUrl + "/v1/agents");
+      if (data.success) {
+        setSalesAgentsData(data.salesAgentsList);
+      } else {
+        console.log("Error fetching sales Agents data");
+      }
+    } catch (error) {
+      console.log("Failed to fetch the Sales Agents");
+    }
+  };
+
   const sidebar = () => {
     return (
       <aside className="dash-board-sidebar">
@@ -125,6 +138,7 @@ const ProductProvider = (props) => {
 useEffect(() => {
     getAuthState();
     fetchLeaders()
+    getSalesAgent()
   }, []);
 
   const value = {
@@ -144,7 +158,10 @@ useEffect(() => {
     setLeads,
     fetchLeaders,
     filteredLeads, 
-    setFilteredLeads
+    setFilteredLeads,
+    salesAgentData,
+    setSalesAgentsData,
+    getSalesAgent
   };
   return (
     <>

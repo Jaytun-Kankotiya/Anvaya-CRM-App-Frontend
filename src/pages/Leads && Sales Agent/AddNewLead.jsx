@@ -6,8 +6,7 @@ import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 
 const AddNewLead = () => {
-  const { sidebar, backendUrl } = useProduct();
-  const [salesAgentData, setSalesAgentsData] = useState([]);
+  const { sidebar, backendUrl, salesAgentData, setSalesAgentsData, getSalesAgent } = useProduct();
   const [leadData, setLeadData] = useState({
     name: "",
     source: "",
@@ -20,22 +19,9 @@ const AddNewLead = () => {
 
   const navigate = useNavigate()
 
-  const getSalesAgent = async () => {
-    try {
-      const { data } = await axios.get(backendUrl + "/v1/agents");
-      if (data.success) {
-        setSalesAgentsData(data.salesAgentsList);
-      } else {
-        console.log("Error fetching sales Agents data");
-      }
-    } catch (error) {
-      console.log("Failed to fetch the Sales Agents");
-    }
-  };
-
-  useEffect(() => {
-    getSalesAgent();
-  }, []);
+//   useEffect(() => {
+//     getSalesAgent();
+//   }, []);
 
 
   const handleFormChange = (e) => {
