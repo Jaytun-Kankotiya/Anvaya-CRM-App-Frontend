@@ -19,11 +19,6 @@ const AddNewLead = () => {
 
   const navigate = useNavigate()
 
-//   useEffect(() => {
-//     getSalesAgent();
-//   }, []);
-
-
   const handleFormChange = (e) => {
     const { name, value } = e.target;
     setLeadData({ ...leadData, [name]: value });
