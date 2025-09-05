@@ -4,6 +4,7 @@ import { Link, NavLink } from "react-router-dom";
 import { createContext, useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
+import { LayoutDashboard, Users, BarChart2 } from "lucide-react";
 
 const ProductContext = createContext();
 export const useProduct = () => useContext(ProductContext);
@@ -118,18 +119,18 @@ const getSalesAgent = async () => {
         <h5 className="sidebar-title">Dashboard Menu</h5>
         <ul className="sidebar-links">
           <li>
-            <NavLink to="/leads" className={({isActive}) => isActive ? "sidebar-link active" : "sidebar-link"}>Leads</NavLink>
+            <NavLink to="/anvaya-dashboard" className={({isActive}) => isActive ? "sidebar-link active" : "sidebar-link"}><LayoutDashboard size={18} /> My Dashboard</NavLink>
+          </li>
+          <li>
+            <NavLink to="/leads" className={({isActive}) => isActive ? "sidebar-link active" : "sidebar-link"}><Users size={18} /> Leads</NavLink>
           </li>
           <li>
             <NavLink to="/sales-agent" className={({isActive}) => isActive ? "sidebar-link active" : "sidebar-link"}>
-              Sales Agents
+              <Users size={18} /> Sales Agents
             </NavLink>
           </li>
           <li>
-            <NavLink to="/report" className={({isActive}) => isActive ? "sidebar-link active" : "sidebar-link"}>Reports</NavLink>
-          </li>
-          <li>
-            <NavLink to="/setting" className={({isActive}) => isActive ? "sidebar-link active" : "sidebar-link"}>Settings</NavLink>
+            <NavLink to="/report" className={({isActive}) => isActive ? "sidebar-link active" : "sidebar-link"}><BarChart2 size={18} /> Reports</NavLink>
           </li>
         </ul>
       </aside>

@@ -127,9 +127,6 @@ const AddNewLead = () => {
                   <option value="Proposal Sent" defaultChecked>
                     Proposal Sent
                   </option>
-                  <option value="Closed" defaultChecked>
-                    Closed
-                  </option>
                 </select>
               </div><br />
 

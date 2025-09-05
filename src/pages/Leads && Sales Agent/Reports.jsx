@@ -9,112 +9,105 @@ import { data } from "react-router-dom";
 
 const Reports = () => {
   const { sidebar, backendUrl, leads, fetchLeaders } = useProduct();
-  const [totalLeadInPipeLine, setTotalLeadInPipeLine] = useState()
-  const [leadClosed, setLeadClosed] = useState()
-//   const [leadByStatus, setLeadByStatus] = useState({
-//     New: 0,
-//     Contacted: 0,
-//     Qualified: 0,
-//     ProposalSent: 0,
-//     Closed: 0
-//   })
+  const [totalLeadInPipeLine, setTotalLeadInPipeLine] = useState();
+  const [leadClosed, setLeadClosed] = useState();
+  //   const [leadByStatus, setLeadByStatus] = useState({
+  //     New: 0,
+  //     Contacted: 0,
+  //     Qualified: 0,
+  //     ProposalSent: 0,
+  //     Closed: 0
+  //   })
 
-
-  const fetchPipelineLeads  = async () => {
+  const fetchPipelineLeads = async () => {
     try {
-        const {data} = await axios.get(backendUrl + '/v1/report/pipeline')
-        if(data) {
-            setTotalLeadInPipeLine(data)
-        }
+      const { data } = await axios.get(backendUrl + "/v1/report/pipeline");
+      if (data) {
+        setTotalLeadInPipeLine(data);
+      }
     } catch (error) {
-        toast.error("Failed to fetch the toal leads in pipeline")
+      toast.error("Failed to fetch the toal leads in pipeline");
     }
-  }
+  };
 
-  const fetchClosedLeads  = async () => {
+  const fetchClosedLeads = async () => {
     try {
-        const {data} = await axios.get(backendUrl + '/v1/report/last-week')
-        if(data) {
-            setLeadClosed(data.length)
-        }
+      const { data } = await axios.get(backendUrl + "/v1/report/last-week");
+      if (data) {
+        setLeadClosed(data.length);
+      }
     } catch (error) {
-        toast.error("Failed to fetch closed leads")
+      toast.error("Failed to fetch closed leads");
     }
-  }
+  };
 
-
-//   const fetchLeadsStatus = async () => {
-//     try {
-//         const {data} = await axios.get(backendUrl + '/v1/report/status')
-//         if(data) {
-            
-//         }
-//     } catch (error) {
-        
-//     }
-//   }
-
-const leadsByStatus = useMemo(() => {
+  const leadByStatus = useMemo(() => {
     const grouped = {
-    New: 0,
-    Contacted: 0,
-    Qualified: 0,
-    ProposalSent: 0,
-    Closed: 0
-    }
-    
+      New: 0,
+      Contacted: 0,
+      Qualified: 0,
+      "Proposal Sent": 0,
+      Closed: 0,
+    };
+
     leads.forEach((lead) => {
-        if(grouped[lead.status] !== undefined) {
-            grouped[lead.status] +=1
-        }
-    })
-    return grouped
-}, [leads]);
+      if (grouped[lead.status] !== undefined) {
+        grouped[lead.status] += 1;
+      }
+    });
+    return grouped;
+  }, [leads]);
 
   const pipelineVsClosedData = {
-    labels: ["Leads In Pipeline", "Closed" ],
+    labels: ["Leads In Pipeline", "Closed Leads"],
     datasets: [
-        {
-            label: "Leads",
-            data: [totalLeadInPipeLine?.totalLeadsInPipeline , leadClosed ],
-            backgroundColor: ["#0088FE", "#FF8042"]
-        }
-    ]
-  }
+      {
+        label: "Leads",
+        data: [totalLeadInPipeLine?.totalLeadsInPipeline, leadClosed],
+        backgroundColor: [ "#00C49F", "#AA66CC"],
+      },
+    ],
+  };
 
-  const leadStatusData  = {
-    labels: ["New", "Contacted", "Qualified", "Proposal Sent", "Closed" ],
-    datasets : [
-        {
-            label: "Lead Status",
-            data: [
-                leadsByStatus.New,
-                leadsByStatus.Contacted,
-                leadsByStatus.Qualified,
-                leadsByStatus.ProposalSent,
-                leadsByStatus.Closed,
-            ],
-            backgroundColor: [
-                "#0088FE",
-                "#00C49F",
-                "#FFBB28",
-                "#FF8042",
-                "#AA66CC",
-            ]
-        }
-    ]
-  }
+    const closedBySalesAgent = {
+    labels: ["Leads In Pipeline", "Lead closed by slaes agent"],
+    datasets: [
+      {
+        label: "Leads",
+        data: [totalLeadInPipeLine?.totalLeadsInPipeline, leadClosed],
+        backgroundColor: ["#FFBB28", "#00C49F"],
+      },
+    ],
+  };
 
-
+  const leadStatusData = {
+    labels: ["New", "Contacted", "Qualified", "Proposal Sent", "Closed"],
+    datasets: [
+      {
+        label: "Leads By Status",
+        data: [
+          leadByStatus["New"],
+          leadByStatus["Qualified"],
+          leadByStatus["Contacted"],
+          leadByStatus["Proposal Sent"],
+          leadByStatus["Closed"],
+        ],
+        backgroundColor: [
+          "#0088FE",
+          "#00C49F",
+          "#FFBB28",
+          "#FF8042",
+          "#AA66CC",
+        ],
+      },
+    ],
+  };
 
   useEffect(() => {
-    fetchPipelineLeads()
-    fetchClosedLeads()
-    fetchLeaders()
-  }, [backendUrl])
-
-  console.log(totalLeadInPipeLine)
-  console.log(leadClosed)
+    fetchPipelineLeads();
+    fetchClosedLeads();
+    fetchLeaders();
+  }, [backendUrl]);
 
 
   return (
@@ -126,27 +119,30 @@ const leadsByStatus = useMemo(() => {
         <main className="dashboard-main">
           <h2 className="text-center">Report Overview</h2>
 
-          <div className="total-lead-div">
-            <p className="text-center">Total Leads Closed and in Pipeline</p>
-            <div>
-                <h5 className="text-center">Pie Chart</h5>
-              <Pie data={pipelineVsClosedData}/>
-            </div>
-          </div>
+          <div className="report-grid">
 
-          <div className="total-lead-div">
-            <p className="text-center">Leads Closed by Sales Agent</p>
-            <div >
+            <div className="report-card pie-chart">
+              <p className="text-center">Total Leads Closed and in Pipeline</p>
+              <div>
+                <h5 className="text-center">Pie Chart</h5>
+                <Pie data={pipelineVsClosedData} />
+              </div>
+            </div>
+
+            <div className="report-card">
+              <p className="text-center">Lead Status Distribution</p>
+              <div>
                 <h5 className="text-center">Bar Chart</h5>
-              <Bar data={pipelineVsClosedData}/>
+                <Bar data={leadStatusData} />
+              </div>
             </div>
-          </div>
 
-          <div className="total-lead-div">
-            <p className="text-center">Lead Status Distribution:</p>
-            <div >
-                <h5 className="text-center">Pie Chart</h5>
-              <Bar data={leadStatusData}/>
+            <div className="report-card">
+              <p className="text-center">Leads Closed by Sales Agent</p>
+              <div>
+                <h5 className="text-center">Bar Chart</h5>
+                <Bar data={closedBySalesAgent} />
+              </div>
             </div>
           </div>
         </main>

@@ -56,6 +56,7 @@ const Dashboard = () => {
                 name=""
                 id="status"
                 className=""
+                style={{ width: "250px" }}
                 value={statusFilter}
               >
                 <option defaultChecked value="">

@@ -2,18 +2,15 @@ import React from "react";
 import { assets } from "../assets/assets";
 import { Link, useNavigate } from "react-router-dom";
 import { useProduct } from "../contexts/ProductContext";
-import axios from "axios";
-import { toast } from "react-toastify";
 
 const Navbar = () => {
 
-    const navigate = useNavigate()
-    const {userData, backendUrl, setUserData, isLoggedIn, setIsLoggedIn, logout, sendVerificationOtp} = useProduct()
+    const {userData, isLoggedIn, logout, sendVerificationOtp} = useProduct()
 
 
     return (
         <div className="container d-flex justify-content-between align-items-center py-2">
-            <h3 className="mb-0"><Link to={isLoggedIn ? '/anvaya-dashboard' : '/'} style={{textDecoration: 'none', color: 'black'}}>Anvaya CRM App</Link></h3>
+            <h3 className="mb-0"><Link to={isLoggedIn ? '/anvaya-dashboard' : '/'} style={{textDecoration: 'none', color: '#4a3333'}}>Anvaya CRM App</Link></h3>
             {userData ? 
             <div className="user-badge">
                 {userData.name}

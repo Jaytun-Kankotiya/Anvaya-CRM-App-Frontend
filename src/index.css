@@ -4,6 +4,7 @@
   --primaryColor: rgba(0, 100, 97, 0.463);
   --secondaryColor: #004c48;
   --tertiaryColor: #003751;
+  ---headingColor: #4a3333;
 }
 
 body {
@@ -620,35 +621,52 @@ body {
   background-color: var(--tertiaryColor);
 }
 
-.total-lead-div {
+.report-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
+  gap: 24px;
+  padding: 0 20px;
+}
+
+.report-card {
   display: flex;
   flex-direction: column;
+  justify-content: center;
   margin-top: 20px;
-  width: 100%;
   background-color: #fff;
   border-radius: 10px;
+  align-items: stretch;
   padding: 20px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
 }
 
 .dashboard-main h2 {
-  font-size: 1.5rem;
   margin-bottom: 20px;
   font-weight: 600;
-  color: #333;
+  color: var(---headingColor);
 }
 
-.total-lead-div p {
-  font-size: 1.1rem;
+.report-card p {
+  font-size: 1.4rem;
   margin-bottom: 10px;
   font-weight: 500;
   text-align: center;
+  color: #004c48;
 }
 
-.total-lead-div h5 {
-  font-size: 1rem;
-  margin: 10px 0;
-  color: #555;
-  text-align: center;
+.report-card h5 {
+  margin-bottom: 16px;
+  font-size: 1.1rem;
+  font-weight: 500;
+  color: #9d0909;
+}
+
+.report-card.pie-chart {
+  min-height: 350px;  
+}
+
+.report-card.pie-chart canvas {
+  max-height: 300px;   
+  margin: 0 auto;
 }
 
