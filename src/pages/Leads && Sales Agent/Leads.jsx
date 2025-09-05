@@ -3,16 +3,30 @@ import Navbar from "../../components/Navbar";
 import { useProduct } from "../../contexts/ProductContext";
 import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
 
 const Leads = () => {
-  const { sidebar, leads, setLeads, fetchLeaders, backendUrl, salesAgentData } =
-    useProduct();
+  const {
+    sidebar,
+    leads,
+    setLeads,
+    fetchLeaders,
+    backendUrl,
+    salesAgentData,
+    statusFilter,
+    setStatusFilter,
+    filteredLeads, 
+    setFilteredLeads,
+    handleStatusChnage,
+    getSalesAgent
+  } = useProduct();
   const [comments, setComments] = useState({});
   const [commentText, setCommentText] = useState("");
   const [editLeadId, setEditLeadId] = useState(null);
   const [updatedLeadData, setUpdatedLeadData] = useState({});
 
   axios.defaults.withCredentials = true;
+  const navigate = useNavigate()
 
   const fetchCommentsPerLead = async (leadId) => {
     try {
@@ -35,6 +49,7 @@ const Leads = () => {
       tags: lead.tags,
       timeToClose: lead.timeToClose,
       priority: lead.priority,
+      closedAt: lead.status === "Closed" ? lead.closedAt : "",
     });
   };
 
@@ -48,7 +63,16 @@ const Leads = () => {
         fetchCommentsPerLead(lead.id);
       });
     }
+    getSalesAgent()
   }, [leads, backendUrl]);
+
+    useEffect(() => {
+    if (!statusFilter) {
+      setFilteredLeads(leads);
+    } else {
+      setFilteredLeads(leads.filter((lead) => lead.status === statusFilter));
+    }
+  }, [statusFilter, leads]);
 
   const addComment = async (leadId, commentText, authorId) => {
     if (!commentText || !authorId) return;
@@ -94,10 +118,42 @@ const Leads = () => {
         <div className="dashboard-main">
           <h2 className="text-center">Lead Details</h2>
 
+          <div className="filter-section mb-3 mt-3 justify-content-between">
+            <div>
+            <label htmlFor="status" className="fs-5">
+              Filter By Status:
+            </label>
+            <select
+              onChange={(e) => handleStatusChnage(e.target.value)}
+              name=""
+              id="status"
+              className=""
+              value={statusFilter}
+            >
+              <option defaultChecked value="">
+                All
+              </option>
+              <option value="New">New</option>
+              <option value="Contacted">Contacted</option>
+              <option value="Qualified">Qualified</option>
+              <option value="Proposal Sent">Proposal Sent</option>
+              <option value="Closed">Closed</option>
+            </select>
+            </div>
+            <button
+              type="button"
+              className="verify-btn py-2"
+              onClick={() => navigate("/add-new-lead")}
+              style={{ width: "200px" }}
+            >
+              Add New Lead
+            </button>
+          </div>
+
           <div>
-            {leads.length > 0 ? (
+            {filteredLeads.length > 0 ? (
               <div className="leads-grid mt-2">
-                {leads.map((lead) => (
+                {filteredLeads.map((lead) => (
                   <div className="lead-card-div" key={lead.id}>
                     <div className="">
                       <p>

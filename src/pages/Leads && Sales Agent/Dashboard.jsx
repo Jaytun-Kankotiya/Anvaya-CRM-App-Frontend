@@ -6,8 +6,8 @@ import { useProduct } from "../../contexts/ProductContext";
 import { toast } from "react-toastify";
 
 const Dashboard = () => {
-  const { backendUrl, sidebar, leads, setLeads, fetchLeaders, filteredLeads, setFilteredLeads } = useProduct();
-  const [statusFilter, setStatusFilter] = useState("");
+  const { backendUrl, sidebar, leads, setLeads, fetchLeaders, filteredLeads, setFilteredLeads, statusFilter, setStatusFilter, handleStatusChnage } = useProduct();
+  
 
   const navigate = useNavigate()
 
@@ -25,26 +25,7 @@ const Dashboard = () => {
     fetchLeaders();
   }, []);
 
-  const handleStatusChnage = async (status) => {
-    setStatusFilter(status);
-    if (!status) {
-      setFilteredLeads(leads);
-      return;
-    }
-    try {
-      const { data } = await axios.get(
-        `${backendUrl}/v1/leads?status=${status}`
-      );
-      if (Array.isArray(data)) {
-        setFilteredLeads(data);
-      } else {
-        toast.info("Mo Leads for this status");
-        setFilteredLeads([]);
-      }
-    } catch (error) {
-      console.error(error.message);
-    }
-  };
+
 
   const statusCounts = leads.reduce((acc, lead) => {
     acc[lead.status] = (acc[lead.status] || 0) + 1;

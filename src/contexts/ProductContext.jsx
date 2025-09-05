@@ -20,6 +20,7 @@ const ProductProvider = (props) => {
   const [userData, setUserData] = useState(false);
   const [filteredLeads, setFilteredLeads] = useState([]);
   const [salesAgentData, setSalesAgentsData] = useState([]);
+  const [statusFilter, setStatusFilter] = useState("");
   
   const backendUrl = import.meta.env.VITE_ANVAYA_BACKEND_URL;
   
@@ -135,6 +136,27 @@ const getSalesAgent = async () => {
     );
   };
 
+  const handleStatusChnage = async (status) => {
+    setStatusFilter(status);
+    if (!status) {
+      setFilteredLeads(leads);
+      return;
+    }
+    try {
+      const { data } = await axios.get(
+        `${backendUrl}/v1/leads?status=${status}`
+      );
+      if (Array.isArray(data)) {
+        setFilteredLeads(data);
+      } else {
+        toast.info("Mo Leads for this status");
+        setFilteredLeads([]);
+      }
+    } catch (error) {
+      console.error(error.message);
+    }
+  };
+
 useEffect(() => {
     getAuthState();
     fetchLeaders()
@@ -161,7 +183,10 @@ useEffect(() => {
     setFilteredLeads,
     salesAgentData,
     setSalesAgentsData,
-    getSalesAgent
+    getSalesAgent,
+    statusFilter,
+    setStatusFilter,
+    handleStatusChnage
   };
   return (
     <>

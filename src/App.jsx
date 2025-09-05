@@ -2,6 +2,8 @@ import { useState } from 'react'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min.js';
 import '@fortawesome/fontawesome-free/css/all.min.css';
+import { Chart as ChartJS } from 'chart.js/auto';
+import { Bar, Doughnut, Line } from 'react-chartjs-2';
 import { Route, Routes } from 'react-router-dom';
 import Home from './pages/Sign Up && Login/Home';
 import Login from './pages/Sign Up && Login/Login';
