@@ -24,6 +24,7 @@ const Leads = () => {
   const [commentText, setCommentText] = useState("");
   const [editLeadId, setEditLeadId] = useState(null);
   const [updatedLeadData, setUpdatedLeadData] = useState({});
+  const [loading, setLoading] = useState(true);
 
   axios.defaults.withCredentials = true;
   const navigate = useNavigate();
@@ -33,7 +34,10 @@ const Leads = () => {
       const { data } = await axios.get(
         backendUrl + `/v1/leads/${leadId}/comments`
       );
-      setComments((prev) => ({ ...prev, [leadId]: data }));
+      if(data) {
+        setComments((prev) => ({ ...prev, [leadId]: data }));
+        setLoading(false)
+      }
     } catch (error) {
       console.log("Error fetching comment");
     }
@@ -110,8 +114,24 @@ const Leads = () => {
   if (a.status !== "Closed" && b.status === "Closed") return -1; 
   return 0; 
 });
-  console.log(leads);
-  console.log(updatedLeadData);
+
+const priorityOrder = {
+  High: 3, Medium: 2, Low: 1
+}
+
+const handleSortChange = (e) => {
+  const value = e.target.value
+
+  const sortedByTimeToClose = [...filteredLeads].sort((a, b) => {
+  if(value === "Asc") return a.timeToClose - b.timeToClose
+  if(value === "Desc") return b.timeToClose - a.timeToClose
+  if(value === "High") return priorityOrder[b.priority] - priorityOrder[a.priority]
+  if(value === "Low") return priorityOrder[a.priority] - priorityOrder[b.priority]
+  return 0
+})
+setFilteredLeads(sortedByTimeToClose)
+}
+
 
   return (
     <div className="dashboard-bg">
@@ -123,26 +143,43 @@ const Leads = () => {
           <h2 className="text-center">Lead Details</h2>
 
           <div className="filter-section mb-3 mt-3 justify-content-between">
-            <div>
+            <div className="filter-select">
               <label htmlFor="status" className="fs-5">
-                Filter By Status:
+                Filter By:
               </label>
               <select
                 onChange={(e) => handleStatusChnage(e.target.value)}
-                name=""
-                id="status"
                 className=""
+                id="status"
                 style={{ width: "250px" }}
                 value={statusFilter}
               >
-                <option defaultChecked value="">
-                  All
-                </option>
+                <option defaultChecked value="">Select Status</option>
                 <option value="New">New</option>
                 <option value="Contacted">Contacted</option>
                 <option value="Qualified">Qualified</option>
                 <option value="Proposal Sent">Proposal Sent</option>
                 <option value="Closed">Closed</option>
+              </select>
+              <select
+                onChange={handleSortChange}
+                name=""
+                id="time"
+                style={{ width: "250px" }}
+              >
+                <option defaultChecked value="">Select Time To Close</option>
+                <option value="Asc">Shortest Time to Close</option>
+                <option value="Desc">Longest Time to Close</option>
+              </select>
+              <select
+                onChange={handleSortChange}
+                name=""
+                id="priority"
+                style={{ width: "250px" }}
+              >
+                <option defaultChecked value="">Select Priority</option>
+                <option value="High">High - Low</option>
+                <option value="Low">Low - High</option>
               </select>
             </div>
             <button
@@ -156,7 +193,10 @@ const Leads = () => {
           </div>
 
           <div>
-            {sortedLeads.length > 0 ? (
+            {loading ? (
+              <p className="text-center mt-3">Loading Leads...</p>
+            ) : (
+            sortedLeads.length > 0 ? (
               <>
                 <div className="leads-grid mt-2">
                   {sortedLeads.map((lead) => (
@@ -412,6 +452,7 @@ const Leads = () => {
               </>
             ) : (
               <p className="text-center mt-2">No Active Leads Found</p>
+            )
             )}
           </div>
         </div>

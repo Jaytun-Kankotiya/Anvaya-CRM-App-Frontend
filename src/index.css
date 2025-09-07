@@ -384,6 +384,11 @@ body {
   align-items: center;
 }
 
+.filter-select {
+  display: flex;
+  gap: 10px;
+}
+
 .filter-section label {
   margin-right: 10px;
   font-weight: 600;
@@ -572,10 +577,18 @@ body {
   background-color: var(--tertiaryColor);
 }
 
+.sales-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 16px;
+}
+
 .list-div {
+  display: flex;
+  flex-direction: column;
   background-color: #fff;
   padding: 16px;
-  border-radius: 8px;
+  border-radius: 12px;
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
   transition: all 0.3s ease-in-out;
 }
@@ -584,6 +597,10 @@ body {
   transform: translateY(-2px);
   cursor: pointer;
   box-shadow: 0 3px 8px rgba(0, 0, 0, 0.15);
+}
+
+.list-div:hover {
+  border: 1px solid #007bff; 
 }
 
 .leads-grid {

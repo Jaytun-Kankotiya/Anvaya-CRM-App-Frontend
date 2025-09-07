@@ -40,6 +40,7 @@ const Login = () => {
         });
 
         if (data.success) {
+          toast.success("Login Succesfully")
           setIsLoggedIn(true);
           getUserData();
           navigate("/");
@@ -98,7 +99,7 @@ const Login = () => {
                   <p>Email: {userData.email}</p>
                   <hr className="mb-2 mt-0" />
                   <p>
-                    Account Verified:{" "}
+                    Account Status:{" "}
                     {userData.isVerified ? (
                       <span style={{ color: "green", fontWeight: "bold" }}>
                         ✅ Verified
