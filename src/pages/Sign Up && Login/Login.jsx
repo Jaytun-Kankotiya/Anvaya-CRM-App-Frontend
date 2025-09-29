@@ -69,8 +69,6 @@ const Login = () => {
     }
   };
 
-  console.log(formData);
-  console.log(userData);
 
   return (
     <div className="login-bg">
