@@ -18,7 +18,7 @@ const ProductProvider = (props) => {
   });
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [leads, setLeads] = useState([]);
-  const [userData, setUserData] = useState(false);
+  const [userData, setUserData] = useState(null);
   const [filteredLeads, setFilteredLeads] = useState([]);
   const [salesAgentData, setSalesAgentsData] = useState([]);
   const [statusFilter, setStatusFilter] = useState("");
@@ -47,7 +47,12 @@ const ProductProvider = (props) => {
       const { data } = await axios.get(backendUrl + "/v1/user/data", {
         withCredentials: true,
       });
-      data.success ? setUserData(data.userData) : toast.error(data.message);
+      if(data.success){
+        setUserData(data.userData)
+        console.log("User Data:", data.userData);
+      }else{
+        toast.error(data.message)
+      }
     } catch (error) {
       toast.error(error.message);
     }

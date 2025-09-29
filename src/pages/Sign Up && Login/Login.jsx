@@ -53,11 +53,9 @@ const Login = () => {
           email: formData.email,
           password: formData.password,
         });
-
         if (data.success) {
           setIsLoggedIn(true);
-          getUserData();
-
+          await getUserData();
           navigate("/anvaya-dashboard");
         } else {
           toast.error(data.message);
@@ -92,13 +90,13 @@ const Login = () => {
                   />
                 </div>
                 <div className="mb-4">
-                  <p className="mt-3">Name: {userData.name}</p>{" "}
+                  <p className="mt-3">Name: {userData?.name}</p>{" "}
                   <hr className="mb-2 mt-0" />
-                  <p>Email: {userData.email}</p>
+                  <p>Email: {userData?.email}</p>
                   <hr className="mb-2 mt-0" />
                   <p>
                     Account Status:{" "}
-                    {userData.isVerified ? (
+                    {userData?.isVerified ? (
                       <span style={{ color: "green", fontWeight: "bold" }}>
                         ✅ Verified
                       </span>
@@ -109,7 +107,7 @@ const Login = () => {
                     )}
                   </p>
                 </div>
-                {!userData.isVerified && <button onClick={sendVerificationOtp} className="verify-btn mb-2">Verify Account Now</button>}
+                {!userData?.isVerified && <button onClick={sendVerificationOtp} className="verify-btn mb-2">Verify Account Now</button>}
                 <button
                   type="button"
                   className="verify-btn d-flex justify-content-center align-items-center gap-1"
