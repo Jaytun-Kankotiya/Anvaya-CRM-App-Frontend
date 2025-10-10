@@ -11,13 +11,6 @@ const Reports = () => {
   const { sidebar, backendUrl, leads, fetchLeaders } = useProduct();
   const [totalLeadInPipeLine, setTotalLeadInPipeLine] = useState();
   const [leadClosed, setLeadClosed] = useState();
-  //   const [leadByStatus, setLeadByStatus] = useState({
-  //     New: 0,
-  //     Contacted: 0,
-  //     Qualified: 0,
-  //     ProposalSent: 0,
-  //     Closed: 0
-  //   })
 
   const fetchPipelineLeads = async () => {
     try {
@@ -37,7 +30,7 @@ const Reports = () => {
         setLeadClosed(data.length);
       }
     } catch (error) {
-      toast.error("Failed to fetch closed leads");
+      toast.error("No Leads Closed Within Last Seven Days");
     }
   };
 

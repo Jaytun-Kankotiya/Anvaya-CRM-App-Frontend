@@ -25,20 +25,10 @@ const SalesAgent = () => {
     }
   };
 
-  // const fetchLeadsOfSalesAgent = (salesAgentId) => {
-  //   const filteredLeads = leads.filter(
-  //     (lead) => lead.salesAgent.id === salesAgentId
-  //   );
-  //   setLeadsList(filteredLeads);
-  // };
 
   useEffect(() => {
     fetchSalesAgentList();
-    // fetchLeadsOfSalesAgent();
   }, []);
-
-  console.log(leads);
-  console.log(salesAgentsList);
 
   return (
     <div className="dashboard-bg">

@@ -49,7 +49,6 @@ const ProductProvider = (props) => {
       });
       if(data.success){
         setUserData(data.userData)
-        console.log("User Data:", data.userData);
       }else{
         toast.error(data.message)
       }
