@@ -2,37 +2,14 @@ import React, { useEffect } from "react";
 import { assets } from "../assets/assets";
 import { Link, useNavigate } from "react-router-dom";
 import { useProduct } from "../contexts/ProductContext";
-import { toast } from "react-toastify";
-import axios from "axios";
 
 const Navbar = () => {
   const { backendUrl, userData, isLoggedIn, logout, setUserData, sendVerificationOtp } =
     useProduct();
 
-  console.log(isLoggedIn);
-
-  const getUserData = async () => {
-    try {
-      const { data } = await axios.get(backendUrl + "/v1/user/data", {
-        withCredentials: true,
-      });
-      if (data.success) {
-        setUserData(data.userData);
-        console.log("User Data:", data.userData);
-      } else {
-        toast.error(data.message);
-        setUserData(null)
-      }
-    } catch (error) {
-        setUserData(null)
-      toast.error(error.message);
-    }
-  };
-
   useEffect(() => {
     getUserData();
   }, []);
-  console.log("userData state: ", userData);
 
   return (
     <div className="container d-flex justify-content-between align-items-center py-2">
